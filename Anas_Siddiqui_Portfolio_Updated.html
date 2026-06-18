@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anas Siddiqui | Portfolio</title>
+  <style>
+    :root {
+      --primary: #0a66c2;
+      --primary-dark: #004182;
+      --accent: #14b8a6;
+      --accent-soft: #ccfbf1;
+      --text: #0f172a;
+      --muted: #475569;
+      --bg: #f8fbff;
+      --card: rgba(255,255,255,0.9);
+      --border: rgba(148, 163, 184, 0.28);
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(10,102,194,0.14), transparent 30%),
+        radial-gradient(circle at right, rgba(20,184,166,0.10), transparent 25%),
+        linear-gradient(180deg, #eef6ff 0%, #f8fbff 45%, #ffffff 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(226,232,240,0.9);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: 0.3px;
+    }
+
+    .logo-badge {
+      width: 220px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 10px 20px rgba(10,102,194,0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-dark);
+      background: rgba(10,102,194,0.09);
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .hero-card, .glass-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before, .glass-card::before, .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), #38bdf8, var(--accent));
+    }
+
+    .hero-card {
+      padding: 42px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92)),
+        radial-gradient(circle at top right, rgba(10,102,194,0.12), transparent 28%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(10,102,194,0.09);
+      color: var(--primary-dark);
+      font-weight: 700;
+      width: fit-content;
+      border: 1px solid rgba(10,102,194,0.12);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 4.3rem);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p.lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badges, .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: 1px solid rgba(148,163,184,0.25);
+      background: white;
+      color: #1e3a5f;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 155px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 14px 30px rgba(10,102,194,0.22);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary-dark);
+      border: 1px solid rgba(10,102,194,0.16);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .glass-card {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92)),
+        radial-gradient(circle at top left, rgba(20,184,166,0.12), transparent 32%);
+    }
+
+    .profile-top {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0a66c2, #14b8a6);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 1.7rem;
+      font-weight: 800;
+      box-shadow: 0 18px 30px rgba(10,102,194,0.25);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      background: white;
+      border: 1px solid rgba(226,232,240,0.9);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .metric b { display: block; font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 4px; }
+    .metric span { color: var(--muted); font-size: 0.92rem; }
+
+    section { padding: 28px 0; }
+
+    .section-head {
+      margin-bottom: 18px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      padding: 18px 18px 18px 22px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid rgba(226,232,240,0.9);
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 0;
+      width: 6px;
+      height: calc(100% - 44px);
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+
+    .timeline-item h3 { font-size: 1.15rem; }
+    .timeline-meta {
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .timeline-item ul {
+      margin-top: 10px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .skill-grid, .project-grid, .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .skill-card, .project-card, .prompt-card, .contact-card {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid rgba(226,232,240,0.95);
+      padding: 22px;
+      transition: 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:hover, .project-card:hover, .prompt-card:hover, .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 28px rgba(15,23,42,0.08);
+      border-color: rgba(10,102,194,0.21);
+    }
+
+    .skill-card h3, .project-card h3, .prompt-card h3, .contact-card h3 { margin-bottom: 8px; }
+    .muted { color: var(--muted); }
+
+    .pill {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: var(--accent-soft);
+      color: #0f766e;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      margin-top: 12px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .project-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tags span {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .prompt-card pre {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.92rem;
+      white-space: pre-wrap;
+      overflow: auto;
+      border: 1px solid rgba(15,23,42,0.2);
+    }
+
+    .project-actions, .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .contact-item {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(226,232,240,0.9);
+      padding: 15px 16px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .input, .textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.28);
+      background: #fbfdff;
+      padding: 14px 16px;
+      font: inherit;
+      color: var(--text);
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    .input:focus, .textarea:focus {
+      border-color: rgba(10,102,194,0.5);
+      box-shadow: 0 0 0 5px rgba(10,102,194,0.08);
+      background: white;
+    }
+
+    .textarea { min-height: 150px; resize: vertical; }
+
+    footer {
+      padding: 24px 0 50px;
+      color: var(--muted);
+    }
+
+    .footer-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(226,232,240,0.9);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-layout,
+      .contact-grid,
+      .skill-grid,
+      .project-grid,
+      .prompt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner { flex-direction: column; align-items: stretch; }
+      .nav-links { justify-content: flex-start; }
+      .hero { padding-top: 48px; }
+      .hero-card, .glass-card, .section-card { padding: 22px; }
+      .hero h1 { font-size: 2.2rem; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      
+        <span class="logo-badge">Anas Siddiqui</span>
+             </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#resume">Resume</a>
+        <a href="#projects">Projects</a>
+        <a href="#prompt-engineering">AI Prompt Engineering</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <span class="eyebrow">Portfolio Website • Quality, Analytics & AI Workflows</span>
+        <h1>Building quality-driven operations with structured thinking, sharp audits, and practical AI prompt design.</h1>
+        <p class="lead">
+          I’m Anas Siddiqui, a Quality Auditing Analyst with a background in content moderation quality, policy interpretation, root-cause analysis, reporting, and operational support. This portfolio highlights my experience, process mindset, technical toolkit, and an AI Prompt Engineering section focused on creating precise prompts, workflow instructions, and reusable templates for professional use.
+        </p>
+        <div class="hero-badges">
+          <span class="chip">Quality Audits</span>
+          <span class="chip">Root Cause Analysis</span>
+          <span class="chip">Policy Interpretation</span>
+          <span class="chip">SQL • Excel • Power BI</span>
+          <span class="chip">AI Prompt Engineering</span>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#projects">View Portfolio</a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+
+      <aside class="glass-card">
+        <div class="profile-top">
+          <div class="avatar">AS</div>
+          <div>
+            <h2 style="font-size:1.45rem; margin-bottom:2px;">Anas Siddiqui</h2>
+            <p class="muted">Quality Auditing Analyst</p>
+            <p class="muted">Mumbai, Maharashtra, India</p>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric"><b>8+ Years</b><span>Quality, operations and support experience</span></div>
+          <div class="metric"><b>B.Sc CS</b><span>Computer Science graduate</span></div>
+          <div class="metric"><b>SQL / Excel</b><span>Analytics & reporting toolkit</span></div>
+          <div class="metric"><b>Prompt Design</b><span>Structured AI task instructions</span></div>
+        </div>
+
+        <div>
+          <span class="pill">Core Focus</span>
+          <div class="chips">
+            <span class="chip">Audit Accuracy</span>
+            <span class="chip">Quality Feedback</span>
+            <span class="chip">Calibration Support</span>
+            <span class="chip">Team Improvement</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>About Me</h2>
+          <p>A concise introduction to my background, work style, and the value I bring through quality reviews, process thinking, and AI-assisted productivity.</p>
+        </div>
+      </div>
+
+      <div class="section-card about-layout">
+        <div>
+          <p class="muted" style="margin-bottom:14px;">
+            I work at the intersection of quality operations, policy understanding, and performance improvement. My experience is built around reviewing decisions, finding recurring gaps, giving actionable feedback, and helping teams build consistency. Alongside quality operations, I am interested in practical AI prompt engineering for workplace use — designing prompts that improve accuracy, reduce ambiguity, and produce structured outputs for analysis, reporting, drafting, and decision support.
+          </p>
+          <p class="muted">
+            My approach combines precision, context reading, and structured communication. Whether auditing moderation decisions, summarizing trends, writing stakeholder-ready observations, or creating reusable AI prompts, I focus on clarity, repeatability, and measurable improvement.
+          </p>
+        </div>
+        <div>
+          <div class="skill-card">
+            <h3>Quick Snapshot</h3>
+            <ul class="list">
+              <li>Current Role: Quality Auditing Analyst</li>
+              <li>Education: B.Sc. in Computer Science</li>
+              <li>Strengths: Audits, RCA, reporting, policy alignment</li>
+              <li>Tools: SQL, Advanced Excel, Power BI, MS Office</li>
+              <li>Interest Area: AI prompt engineering for productivity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Experience Timeline</h2>
+          <p>My professional background spans quality auditing, content moderation quality assurance, process support, and customer-facing service operations.</p>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="timeline-meta">Accenture Pvt Ltd • June 2018 – Present</span>
+            <h3>Quality Auditing Analyst</h3>
+            <ul>
+              <li>Conduct quality audits of moderation decisions and measure policy compliance.</li>
+              <li>Identify recurring gaps using trend analysis and root cause evaluation.</li>
+              <li>Provide detailed, actionable feedback to improve decision accuracy and consistency.</li>
+              <li>Support calibrations, policy clarification, KPI monitoring, and management reporting.</li>
+              <li>Mentor team members and contribute to quality improvement initiatives.</li>
+            </ul>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-meta">Shoppers Stop Ltd • February 2014 – May 2016</span>
+            <h3>Customer Support Associate</h3>
+            <ul>
+              <li>Handled product queries, billing, returns, refunds, and service concerns across support channels.</li>
+              <li>Resolved complaints and coordinated with operations and inventory teams.</li>
+              <li>Maintained accurate customer records and service workflows.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Skills & Capabilities</h2>
+          <p>An in-depth view of the professional capabilities represented in this portfolio.</p>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="skill-grid">
+          <div class="skill-card">
+            <span class="pill">Quality & Operations</span>
+            <h3>Audit Excellence</h3>
+            <p class="muted">Quality audits, policy interpretation, calibration support, decision accuracy review, and process-compliance measurement.</p>
+          </div>
+          <div class="skill-card">
+            <span class="pill">Analysis</span>
+            <h3>Problem Solving & RCA</h3>
+            <p class="muted">Root cause analysis, trend identification, issue clustering, and actionable insights for improvement planning.</p>
+          </div>
+          <div class="skill-card">
+            <span class="pill">Reporting</span>
+            <h3>Data & Performance Reporting</h3>
+            <p class="muted">SQL, Advanced Excel, Power BI, KPI monitoring, summary generation, and stakeholder-ready reporting.</p>
+          </div>
+          <div class="skill-card">
+            <span class="pill">Communication</span>
+            <h3>Feedback & Collaboration</h3>
+            <p class="muted">Constructive feedback, cross-functional alignment, team mentoring, escalation writing, and documentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Featured Portfolio Projects</h2>
+          <p>Project-style sections that showcase your work areas in a polished portfolio format.</p>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="pill">Project 01</span>
+            <h3>Content Quality Audit Framework</h3>
+            <p class="muted">A structured audit workflow designed to improve moderation decision quality through consistent review logic, context validation, and clear feedback patterns.</p>
+            <div class="tags">
+              <span>Auditing</span><span>Quality Control</span><span>Policy Review</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="#contact">Discuss Project</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <span class="pill">Project 02</span>
+            <h3>Root Cause Analysis Reporting</h3>
+            <p class="muted">A reporting concept focused on identifying recurring errors, training needs, and process deviations to improve team accuracy and operational outcomes.</p>
+            <div class="tags">
+              <span>RCA</span><span>Reporting</span><span>Performance Trends</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="#contact">Discuss Project</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <span class="pill">Project 03</span>
+            <h3>Prompt-driven Knowledge Drafting</h3>
+            <p class="muted">A reusable prompt workflow for creating emails, audit observations, summaries, and structured notes with a professional and consistent tone.</p>
+            <div class="tags">
+              <span>AI Prompts</span><span>Drafting</span><span>Documentation</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="#prompt-engineering">View Prompt Ideas</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <span class="pill">Project 04</span>
+            <h3>AI-assisted Reviewer Guidance</h3>
+            <p class="muted">A concept for using precise prompts to transform reviewer errors into concise, actionable coaching notes and escalation-ready observations.</p>
+            <div class="tags">
+              <span>Coaching</span><span>AI Assistance</span><span>Quality Improvement</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="#prompt-engineering">Explore Section</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prompt-engineering">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>AI Prompt Engineering</h2>
+          <p>This section presents AI prompt engineering as a practical portfolio capability: designing clear instructions, improving output structure, reducing ambiguity, and building reusable prompts for workplace productivity.</p>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="prompt-grid" style="margin-bottom:18px;">
+          <article class="prompt-card">
+            <span class="pill">Capability</span>
+            <h3>Prompt Design Principles</h3>
+            <ul class="list">
+              <li>Set a clear role and objective for the AI.</li>
+              <li>Define context, audience, tone, and output format.</li>
+              <li>Specify constraints, exclusions, and decision logic.</li>
+              <li>Request structured output for easier review and reuse.</li>
+              <li>Iterate prompts based on quality gaps and results.</li>
+            </ul>
+          </article>
+
+          <article class="prompt-card">
+            <span class="pill">Use Cases</span>
+            <h3>Where Prompt Engineering Helps</h3>
+            <ul class="list">
+              <li>Summarizing audit findings and trend insights</li>
+              <li>Drafting professional emails, MOM notes, and observations</li>
+              <li>Creating calibration notes or reviewer coaching feedback</li>
+              <li>Generating structured blog posts and portfolio content</li>
+              <li>Converting complex policy logic into simpler guidance</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="prompt-grid">
+          <article class="prompt-card">
+            <span class="pill">Sample Prompt</span>
+            <h3>Professional Reframing Prompt</h3>
+            <p class="muted">Use this kind of prompt to transform raw issue notes into concise professional observations:</p>
+            <pre>Act as a professional quality analyst. Reframe the following audit note into one concise and formal paragraph. Keep the tone objective, accurate, and action-oriented. Explain what was missed, why the decision was incorrect, and what the correct action should have been. If the case is ambiguous, mention that support should have been sought.
+
+Input: [paste raw audit note here]
+Output style: single paragraph, professional, no bullets.</pre>
+          </article>
+
+          <article class="prompt-card">
+            <span class="pill">Sample Prompt</span>
+            <h3>LinkedIn / Blog Content Prompt</h3>
+            <p class="muted">Use this type of prompt to create thought leadership posts from your work experience:</p>
+            <pre>Act as a professional content writer for LinkedIn. Create a strong post for a Quality Auditing Analyst. Topic: [insert topic]. Tone: professional and insightful. Include a hook, 3 practical takeaways, and a short closing line. Keep it easy to read, high-value, and suitable for a professional audience. Do not exaggerate claims.</pre>
+          </article>
+
+          <article class="prompt-card">
+            <span class="pill">Sample Prompt</span>
+            <h3>Prompt Template for Structured Summaries</h3>
+            <p class="muted">A reusable format for summaries, trackers, observations, or meeting notes:</p>
+            <pre>Role: Business analyst / quality analyst
+Task: Summarize the provided content.
+Context: [describe file, tracker, meeting, or discussion]
+Audience: Leadership / team lead / operations / stakeholders
+Format:
+1. Executive summary
+2. Key observations
+3. Risks or quality gaps
+4. Recommended actions
+Tone: concise, formal, data-driven
+Length: 150–250 words</pre>
+          </article>
+
+          <article class="prompt-card">
+            <span class="pill">Portfolio Angle</span>
+            <h3>How to Position Prompt Engineering</h3>
+            <p class="muted">In a professional portfolio, prompt engineering is strongest when positioned as a practical productivity capability — not just writing prompts, but designing systems of instruction that help generate reliable drafts, summaries, insights, and workflows.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="resume">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Resume Download</h2>
+          <p>Access my professional resume in a clean and recruiter-friendly format. Choose the version that works best for your review process.</p>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="pill">Professional Resume</span>
+            <h3>Download Resume Files</h3>
+            <p class="muted">My resume highlights experience in quality auditing, policy interpretation, analytics, reporting, and AI prompt engineering. Download the PDF for easy sharing or the Word version for standard document access.</p>
+            <div class="tags">
+              <span>PDF Format</span><span>Word Format</span><span>Recruiter Ready</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="Anas_Siddiqui_CV.pdf" download>Download PDF Resume</a>
+              <a class="btn btn-secondary" href="Anas_Siddiqui_CV.docx" download>Download Word Resume</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <span class="pill">Highlights</span>
+            <h3>Resume Snapshot</h3>
+            <ul class="list">
+              <li>8+ years of experience in quality, operations, and support.</li>
+              <li>Strong background in audits, RCA, reporting, and stakeholder communication.</li>
+              <li>Hands-on exposure to SQL, Advanced Excel, Power BI, HTML, CSS, and prompt design.</li>
+              <li>Focused on structured thinking, process improvement, and professional communication.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Contact & Next Steps</h2>
+          <p>Use this section to connect for professional opportunities, collaborations, or discussions related to quality operations, analytics, and AI-enabled workflow improvement.</p>
+        </div>
+      </div>
+      <div class="section-card contact-grid">
+        <div class="contact-card">
+          <h3>Let’s Connect</h3>
+          <p class="muted">Available for quality operations discussions, portfolio collaborations, reporting ideas, and AI-assisted workflow design conversations.</p>
+          <div class="contact-list">
+            <div class="contact-item"><strong>Email:</strong> siddiquianas566@gmail.com</div>
+            <div class="contact-item"><strong>Phone:</strong> 9769605734</div>
+            <div class="contact-item"><strong>Location:</strong> Mumbai, Maharashtra, India</div>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:siddiquianas566@gmail.com">Email Me</a>
+            <a class="btn btn-secondary" href="#home">Back to Top</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <h3>Contact Form</h3>
+          <div class="contact-form">
+            <input class="input" type="text" placeholder="Your name" />
+            <input class="input" type="email" placeholder="Your email" />
+            <input class="input" type="text" placeholder="Subject" />
+            <textarea class="textarea" placeholder="Write your message here..."></textarea>
+            <button class="btn btn-primary" type="button" onclick="showMessage()">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-card">
+        <p><strong>Anas Siddiqui Portfolio</strong> • Quality Auditing • Analytics • AI Prompt Engineering</p>
+        <p style="margin-top:8px;">Designed as a modern, recruiter-friendly, responsive portfolio website.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function showMessage() {
+      alert('Thank you for visiting the portfolio. Replace this with a real backend or form service to receive messages.');
+    }
+
+    const links = document.querySelectorAll('.nav-links a');
+    const sections = [...links].map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = document.querySelector(`.nav-links a[href="${id}"]`);
+        if (entry.isIntersecting) {
+          links.forEach(a => a.classList.remove('active'));
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
